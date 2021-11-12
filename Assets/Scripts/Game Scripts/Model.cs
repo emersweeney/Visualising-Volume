@@ -84,22 +84,19 @@ public class Model : Subject
         distance = Vector3.Distance(anchor.position, mouseWorldPos); 
         float xDistance = mouseWorldPos.x - anchor.position.x;
 
-        //OLD tempNewScale:
-        //tempNewScale = new Vector3(startDragScale.x/50f + 5f*distance, startDragScale.y, startDragScale.z); 
-
         //main object scale moves changes in x by distance dragged in x direction divided by 50 (to offset
         //difference between imported shape scale and unity default scale 1)
         tempNewScale = new Vector3(xDistance*50f, startDragScale.y, startDragScale.z); 
         newMainScale = tempNewScale;
         Debug.Log(tempNewScale);
-    
-        // midPoint = (anchor.position + mouseWorldPos)/2f;
-        // xOffset = mainShape.transform.localScale.y - startDragScale.y;
-        // newMainPosition = new Vector3(xOffset/150, mainShape.transform.position.y, mainShape.transform.position.z);
-
 
         newMainPosition = new Vector3(-xDistance/2, mainShape.transform.position.y, mainShape.transform.position.z);
         // Debug.Log(newMainPosition);
+
+        newWaterPosition = newMainPosition;
+
+        float newDimension = waterShape.GetComponent<ShapeVolume>().calculateDimension();
+        newWaterScale = new Vector3(newMainScale.x, newMainScale.y/2f, newMainScale.z);
         notify();
      }
 }

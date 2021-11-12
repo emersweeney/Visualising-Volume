@@ -55,16 +55,19 @@ public class View : Observer
       public void notifyMe(Vector3 mainPos, Vector3 waterPos, Vector3 mainScale, Vector3 waterScale){
         // Debug.Log("notified - View");
 
-        this.mainPos = mainPos;
-        mainShape.transform.position = mainPos;
+        if (mainScale.x<-50){
+            this.mainPos = mainPos;
+            mainShape.transform.position = this.mainPos;
 
-        this.mainScale = mainScale;
-        mainShape.transform.localScale = mainScale;
+            this.mainScale = mainScale;
+            mainShape.transform.localScale = this.mainScale;
 
-        this.waterPos = waterPos;
-        waterShape.transform.position = waterPos;
+            this.waterPos = new Vector3(waterPos.x, waterScale.y/50/2, waterPos.z);
+            waterShape.transform.position = this.waterPos;
 
-        this.waterScale = waterScale;
-        waterShape.transform.localScale = waterScale;
+            this.waterScale = waterScale;
+            waterShape.transform.localScale = this.waterScale;
+        }
+    
     }
 }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6370955241410194862}
   - component: {fileID: -8852106518740281218}
   m_Layer: 0
-  m_Name: Cuboid
+  m_Name: Cuboid (USE THIS)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -19,6 +19,9 @@ public class Main : MonoBehaviour
         view.makeShapes(mainShape, waterShape);
         mainShape = view.getMainShape(); //overwrite shape references to contain clones and not prefabs
         waterShape = view.getWaterShape();
+
+
+
         originalScale = mainShape.transform.localScale;
         cameraZDistance = Camera.main.ScreenToWorldPoint(mainShape.transform.position).z;
 
