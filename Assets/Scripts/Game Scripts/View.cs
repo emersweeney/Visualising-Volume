@@ -41,9 +41,15 @@ public class View : Observer
         this.waterScale = waterScale;
     }
     public void makeShapes(GameObject mainPrefab, GameObject waterPrefab){
-        this.mainShape = MonoBehaviour.Instantiate(mainPrefab, new Vector3(0,1,0), Quaternion.identity);
+        this.mainShape = MonoBehaviour.Instantiate(mainPrefab, new Vector3(1,1,0), Quaternion.identity);
+        this.mainPos = mainShape.transform.position;
         mainShape.transform.localScale = new Vector3(100,100,100);
-        this.waterShape = MonoBehaviour.Instantiate(waterPrefab, new Vector3(0,1,0), Quaternion.identity);
+        this.mainScale = mainShape.transform.localScale;
+
+        this.waterShape = MonoBehaviour.Instantiate(waterPrefab, new Vector3(mainPos.x, mainPos.y/2f, mainPos.z), Quaternion.identity);
+        this.waterPos = waterShape.transform.position;
+        waterShape.transform.localScale = new Vector3(mainScale.x-0.1f, mainScale.y/2, mainScale.z-0.1f);
+        this.waterScale = waterShape.transform.localScale;
     }
 
       public void notifyMe(Vector3 mainPos, Vector3 waterPos, Vector3 mainScale, Vector3 waterScale){
@@ -53,7 +59,12 @@ public class View : Observer
         mainShape.transform.position = mainPos;
 
         this.mainScale = mainScale;
-        Debug.Log(mainScale);
         mainShape.transform.localScale = mainScale;
+
+        this.waterPos = waterPos;
+        waterShape.transform.position = waterPos;
+
+        this.waterScale = waterScale;
+        waterShape.transform.localScale = waterScale;
     }
 }

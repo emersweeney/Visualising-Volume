@@ -29,6 +29,8 @@ public class Main : MonoBehaviour
         model.setAnchor(anchor);
     }
 
+
+    //Method called when OnMouseDrag() runs in DragNotifier script, attached to mainShape    
     public void updateModel(){
         Debug.Log("updating - Main");
         model.updateShapeModel(mainShape, waterShape);

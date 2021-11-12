@@ -14,7 +14,7 @@ public class Model : Subject
     private Vector3 mouseScreenPos, mouseWorldPos;
     private Transform anchor;
     private List<Observer> observers = new List<Observer>();
-    private float distance, cameraZDistance, xOffset;
+    private float distance, cameraZDistance;
     private Vector3 startDragScale, originalScale, originalPosition, midPoint;
 
     // Getter methods for shape positions and scales
@@ -74,21 +74,31 @@ public class Model : Subject
      public void updateShapeModel(GameObject mainShape, GameObject waterShape){
         //  Debug.Log("updating - Model");
         
+        //get mouse position in world space - using z-coordinate of main camera as movement will not be detected
+        //with a 0 z-coordinate
         mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraZDistance);
         mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
         Debug.Log(mouseWorldPos);
-        distance = Vector3.Distance(anchor.position, mouseWorldPos); //distance anchor to mouse pos
-        // distance = mouseWorldPos.x - anchor.x;
-        tempNewScale = new Vector3(startDragScale.x/50f + 5f*distance, startDragScale.y, startDragScale.z); 
-        // if (tempNewScale.y >= originalScale.y){
-            newMainScale = tempNewScale;
-        // }
+
+        //distance from anchor to mouse position in world space
+        distance = Vector3.Distance(anchor.position, mouseWorldPos); 
+        float xDistance = mouseWorldPos.x - anchor.position.x;
+
+        //OLD tempNewScale:
+        //tempNewScale = new Vector3(startDragScale.x/50f + 5f*distance, startDragScale.y, startDragScale.z); 
+
+        //main object scale moves changes in x by distance dragged in x direction divided by 50 (to offset
+        //difference between imported shape scale and unity default scale 1)
+        tempNewScale = new Vector3(xDistance*50f, startDragScale.y, startDragScale.z); 
+        newMainScale = tempNewScale;
         Debug.Log(tempNewScale);
     
-        midPoint = (anchor.position + mouseWorldPos)/2f;
+        // midPoint = (anchor.position + mouseWorldPos)/2f;
         // xOffset = mainShape.transform.localScale.y - startDragScale.y;
         // newMainPosition = new Vector3(xOffset/150, mainShape.transform.position.y, mainShape.transform.position.z);
-        newMainPosition = new Vector3((startDragScale.x/50f + 5f*distance)/100f, mainShape.transform.position.y, mainShape.transform.position.z);
+
+
+        newMainPosition = new Vector3(-xDistance/2, mainShape.transform.position.y, mainShape.transform.position.z);
         // Debug.Log(newMainPosition);
         notify();
      }
