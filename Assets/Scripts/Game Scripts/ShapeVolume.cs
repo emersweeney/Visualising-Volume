@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface ShapeVolume
 {
-    public abstract float calculateVolume();
+    public abstract void calculateVolume();
     public abstract float calculateDimension();
 }

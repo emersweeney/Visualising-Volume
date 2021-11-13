@@ -8,15 +8,17 @@ using UnityEngine;
 public class CuboidVolume : MonoBehaviour, ShapeVolume
 {
     float length, breadth, height, volume, dimension;
-    public void calculateVolume(){ 
+    public void calculateVolume(){
+        this.length = this.gameObject.transform.localScale.z;
+        this.breadth = this.gameObject.transform.localScale.x;
+        this.height = this.gameObject.transform.localScale.y;
         this.volume = length*breadth*height;
     }
 
     public float calculateDimension(){
-        this.volume = 
         this.length = this.gameObject.transform.localScale.z;
         this.breadth = this.gameObject.transform.localScale.x;
-        dimension = (float)volume/length/breadth;
+        dimension = -volume/length/breadth;
         Debug.Log("volume ="+volume);
         Debug.Log("dimension="+dimension);
         return dimension;

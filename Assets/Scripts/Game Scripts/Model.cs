@@ -96,7 +96,7 @@ public class Model : Subject
         newWaterPosition = newMainPosition;
 
         float newDimension = waterShape.GetComponent<ShapeVolume>().calculateDimension();
-        newWaterScale = new Vector3(newMainScale.x, newMainScale.y/2f, newMainScale.z);
+        newWaterScale = new Vector3(newMainScale.x, newDimension, newMainScale.z);
         notify();
      }
 }
