@@ -19,8 +19,9 @@ public class CuboidVolume : MonoBehaviour, ShapeVolume
         this.length = this.gameObject.transform.localScale.z;
         this.breadth = this.gameObject.transform.localScale.x;
         dimension = -volume/length/breadth;
-        Debug.Log("volume ="+volume);
-        Debug.Log("dimension="+dimension);
         return dimension;
     }
+
+    public float getMinHeight(){return volume/Camera.main.GetComponent<Main>().getMaxLength();}
+    public float getMaxHeight(){return volume/Camera.main.GetComponent<Main>().getMinLength();}
 }

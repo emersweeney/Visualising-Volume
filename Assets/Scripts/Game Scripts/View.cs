@@ -4,42 +4,18 @@ using UnityEngine;
 
 public class View : Observer
 {
-    private GameObject mainShape, waterShape;
+    private GameObject mainShape, waterShape, targetArrow, dragArrow;
     private Subject subject;
-
     private Vector3 mainPos, waterPos;
     private Vector3 mainScale, waterScale;
 
     //Get methods for shapes - return by REFERENCE
-    public ref GameObject getMainShape(){
-        return ref mainShape;
-    }
-
-    public ref GameObject getWaterShape(){
-        return ref waterShape;
-    }
-
-    //Set methods for subject, shape positions & scales
-    public void addSubject(Subject subject){
-        this.subject = subject;
-        subject.attach(this);
-    }
-
-    public void setMainPos(Vector3 mainPos){
-        this.mainPos = mainPos;
-    }
-
-    public void setWaterPos(Vector3 waterPos){
-        this.waterPos = waterPos;
-    }
-
-    public void setMainScale(Vector3 mainScale){
-        this.mainScale = mainScale;
-    }
-
-    public void setWaterScale(Vector3 waterScale){
-        this.waterScale = waterScale;
-    }
+    public ref GameObject getMainShape(){ return ref mainShape;}
+    public ref GameObject getWaterShape(){ return ref waterShape;}
+    public ref GameObject getTargetArrow(){ return ref targetArrow;}
+    public ref GameObject getDragArrow(){ return ref dragArrow;}
+    //Set method for subject
+    public void addSubject(Subject subject){ this.subject = subject; subject.attach(this);}
     public void makeShapes(GameObject mainPrefab, GameObject waterPrefab){
         this.mainShape = MonoBehaviour.Instantiate(mainPrefab, new Vector3(1,1,0), Quaternion.identity);
         this.mainPos = mainShape.transform.position;
@@ -48,14 +24,21 @@ public class View : Observer
 
         this.waterShape = MonoBehaviour.Instantiate(waterPrefab, new Vector3(mainPos.x, mainPos.y/2f, mainPos.z), Quaternion.identity);
         this.waterPos = waterShape.transform.position;
-        waterShape.transform.localScale = new Vector3(mainScale.x-0.1f, mainScale.y/2, mainScale.z-0.1f);
+        waterShape.transform.localScale = new Vector3(mainScale.x, mainScale.y/2, mainScale.z);
         this.waterScale = waterShape.transform.localScale;
     }
 
-      public void notifyMe(Vector3 mainPos, Vector3 waterPos, Vector3 mainScale, Vector3 waterScale){
-        // Debug.Log("notified - View");
+    public void makeTargetArrow(GameObject target, float yPos){
+        this.targetArrow = MonoBehaviour.Instantiate(target, new Vector3(-1f,yPos,0), Quaternion.identity);
+    }
+    public void makeDragArrow(GameObject arrow){
+        this.dragArrow = MonoBehaviour.Instantiate(arrow, new Vector3(mainShape.transform.localScale.x/50f, (mainShape.transform.localScale.y-10)/50f, -mainShape.transform.localScale.z/100f), Quaternion.identity);
+    }
 
-        if (mainScale.x<-50){
+    public void notifyMe(Vector3 mainPos, Vector3 waterPos, Vector3 mainScale, Vector3 waterScale){
+    // Debug.Log("notified - View");
+
+        if (mainScale.x<-Camera.main.GetComponent<Main>().getMinLength() && mainScale.x>-Camera.main.GetComponent<Main>().getMaxLength()){
             this.mainPos = mainPos;
             mainShape.transform.position = this.mainPos;
 
@@ -67,6 +50,9 @@ public class View : Observer
 
             this.waterScale = waterScale;
             waterShape.transform.localScale = this.waterScale;
+
+            this.dragArrow.transform.position = new Vector3(-mainShape.transform.localScale.x/50f, (mainShape.transform.localScale.y-10)/50f, -mainShape.transform.localScale.z/100f);
+
         }
     
     }

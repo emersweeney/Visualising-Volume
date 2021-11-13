@@ -15,7 +15,7 @@ public class Model : Subject
     private Transform anchor;
     private List<Observer> observers = new List<Observer>();
     private float distance, cameraZDistance;
-    private Vector3 startDragScale, originalScale, originalPosition, midPoint;
+    private Vector3 startDragScale;
 
     // Getter methods for shape positions and scales
     public Vector3 getMainPos(){
@@ -37,14 +37,6 @@ public class Model : Subject
     //Set methods for startDragScale, originalScale, cameraZDistance and anchor
     public void setStartDragScale(Vector3 scale){
         this.startDragScale = scale;
-    }
-
-    public void setOriginalScale(Vector3 originalScale){
-        this.originalScale = originalScale;
-    }
-
-    public void setOriginalPosition(Vector3 originalPosition){
-        this.originalPosition = originalPosition;
     }
 
     public void setCameraZDistance(float zDistance){
@@ -78,7 +70,7 @@ public class Model : Subject
         //with a 0 z-coordinate
         mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraZDistance);
         mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
-        Debug.Log(mouseWorldPos);
+        // Debug.Log(mouseWorldPos);
 
         //distance from anchor to mouse position in world space
         distance = Vector3.Distance(anchor.position, mouseWorldPos); 
@@ -88,7 +80,7 @@ public class Model : Subject
         //difference between imported shape scale and unity default scale 1)
         tempNewScale = new Vector3(xDistance*50f, startDragScale.y, startDragScale.z); 
         newMainScale = tempNewScale;
-        Debug.Log(tempNewScale);
+        // Debug.Log(tempNewScale);
 
         newMainPosition = new Vector3(-xDistance/2, mainShape.transform.position.y, mainShape.transform.position.z);
         // Debug.Log(newMainPosition);
