@@ -14,14 +14,19 @@ public class CuboidVolume : MonoBehaviour, ShapeVolume
         this.height = this.gameObject.transform.localScale.y;
         this.volume = length*breadth*height;
     }
+    public Vector3 calculateStartScale(Vector3 mainScale){
+        return new Vector3(mainScale.x, mainScale.y/2f, mainScale.z);
+    }
 
-    public float calculateDimension(){
-        this.length = this.gameObject.transform.localScale.z;
-        this.breadth = this.gameObject.transform.localScale.x;
+    public Vector3 calculateNewScale(Vector3 mainScale){
+        this.length = mainScale.x;
+        this.breadth = mainScale.z;
         dimension = -volume/length/breadth;
-        return dimension;
+        return new Vector3(length, dimension, breadth);
     }
 
     public float getMinHeight(){return volume/Camera.main.GetComponent<Main>().getMaxLength();}
     public float getMaxHeight(){return volume/Camera.main.GetComponent<Main>().getMinLength();}
+    public void receiveMainShape(ref GameObject mainShape){}
+    public void receiveDragDistance(float dragDistance){}
 }

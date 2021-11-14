@@ -120,6 +120,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9039098385519977979}
     m_Modifications:
+    - target: {fileID: 5509328906043647050, guid: 59060fae041078b46830b2aae19b3443, type: 3}
+      propertyPath: m_Color.a
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 5509328906043647050, guid: 59060fae041078b46830b2aae19b3443, type: 3}
+      propertyPath: m_Color.b
+      value: 0.92156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 5509328906043647050, guid: 59060fae041078b46830b2aae19b3443, type: 3}
+      propertyPath: m_Color.g
+      value: 0.54509807
+      objectReference: {fileID: 0}
+    - target: {fileID: 5509328906043647050, guid: 59060fae041078b46830b2aae19b3443, type: 3}
+      propertyPath: m_Color.r
+      value: 0.46666667
+      objectReference: {fileID: 0}
     - target: {fileID: 5509328906043647052, guid: 59060fae041078b46830b2aae19b3443, type: 3}
       propertyPath: m_Name
       value: Arrow (Target)

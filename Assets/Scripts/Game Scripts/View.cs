@@ -24,7 +24,7 @@ public class View : Observer
 
         this.waterShape = MonoBehaviour.Instantiate(waterPrefab, new Vector3(mainPos.x, mainPos.y/2f, mainPos.z), Quaternion.identity);
         this.waterPos = waterShape.transform.position;
-        waterShape.transform.localScale = new Vector3(mainScale.x, mainScale.y/2, mainScale.z);
+        waterShape.transform.localScale = waterShape.GetComponent<ShapeVolume>().calculateStartScale(mainScale);
         this.waterScale = waterShape.transform.localScale;
     }
 
@@ -38,17 +38,21 @@ public class View : Observer
     public void notifyMe(Vector3 mainPos, Vector3 waterPos, Vector3 mainScale, Vector3 waterScale){
     // Debug.Log("notified - View");
 
+        if (Camera.main.GetComponent<Main>().getGameState() == 1){return;}
+
         if (mainScale.x<-Camera.main.GetComponent<Main>().getMinLength() && mainScale.x>-Camera.main.GetComponent<Main>().getMaxLength()){
             this.mainPos = mainPos;
             mainShape.transform.position = this.mainPos;
 
             this.mainScale = mainScale;
             mainShape.transform.localScale = this.mainScale;
+            waterShape.GetComponent<ShapeVolume>().receiveMainShape(ref mainShape);
 
             this.waterPos = new Vector3(waterPos.x, waterScale.y/50/2, waterPos.z);
             waterShape.transform.position = this.waterPos;
 
             this.waterScale = waterScale;
+            Debug.Log("WATER SCALE IN VIEW:"+this.waterScale);
             waterShape.transform.localScale = this.waterScale;
 
             this.dragArrow.transform.position = new Vector3(-mainShape.transform.localScale.x/50f, (mainShape.transform.localScale.y-10)/50f, -mainShape.transform.localScale.z/100f);

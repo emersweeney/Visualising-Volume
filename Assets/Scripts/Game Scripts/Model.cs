@@ -75,20 +75,21 @@ public class Model : Subject
         //distance from anchor to mouse position in world space
         distance = Vector3.Distance(anchor.position, mouseWorldPos); 
         float xDistance = mouseWorldPos.x - anchor.position.x;
+        waterShape.GetComponent<ShapeVolume>().receiveDragDistance(xDistance);
+        waterShape.GetComponent<ShapeVolume>().receiveMainShape(ref mainShape);
 
         //main object scale moves changes in x by distance dragged in x direction divided by 50 (to offset
         //difference between imported shape scale and unity default scale 1)
         tempNewScale = new Vector3(xDistance*50f, startDragScale.y, startDragScale.z); 
         newMainScale = tempNewScale;
-        // Debug.Log(tempNewScale);
 
         newMainPosition = new Vector3(-xDistance/2, mainShape.transform.position.y, mainShape.transform.position.z);
         // Debug.Log(newMainPosition);
 
         newWaterPosition = newMainPosition;
 
-        float newDimension = waterShape.GetComponent<ShapeVolume>().calculateDimension();
-        newWaterScale = new Vector3(newMainScale.x, newDimension, newMainScale.z);
+        newWaterScale = waterShape.GetComponent<ShapeVolume>().calculateNewScale(newMainScale);
+        // newWaterScale = new Vector3(newMainScale.x, newD, newMainScale.z);
         notify();
      }
 }

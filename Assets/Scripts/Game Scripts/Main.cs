@@ -2,14 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.Random;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class Main : MonoBehaviour
 { 
     [SerializeField] public GameObject mainShape, waterShape, targetArrow, dragArrow; //Prefabs to be instantiated by View
     [SerializeField] public Transform anchor; //anchor (whose position drag distance is measured from)
+    [SerializeField] public Color winColour;
     private Model model;
     private View view;
     private float cameraZDistance; //mouse drag z coordinate set to this to ensure movement is detected
-    private float minLength, maxLength, minHeight, maxHeight, yPos;
+    private float minLength, maxLength, minHeight, maxHeight, yPos, previous_yPos;
+
+    private int gameState = 0; //0 = game not won, 1 = game won
+
+    public int getGameState(){
+        return gameState;
+    }
     void Start()
     {
         //create model and view instances
@@ -21,6 +30,7 @@ public class Main : MonoBehaviour
 
         //pass view main shap & water shape prefab references for instantiation
         view.makeShapes(mainShape, waterShape);
+
         
         //overwrite references to contain clones and not prefabs
         mainShape = view.getMainShape(); 
@@ -38,13 +48,11 @@ public class Main : MonoBehaviour
         maxLength = mainShape.transform.localScale.x*2f;
         minHeight = waterShape.GetComponent<ShapeVolume>().getMinHeight()/100f;
         maxHeight = waterShape.GetComponent<ShapeVolume>().getMaxHeight()/100f;
-        // Debug.Log("minHeight="+minHeight);
-        // Debug.Log("maxHeight="+maxHeight);
         
-        //randomise y position of target arrow
-        yPos = Random.Range(minHeight+1, maxHeight)/50f;
-        // Debug.Log("yPos="+yPos);
+        //randomise y position of target arrow, ensuring it is not the same as previous yPos OR current height of water shape
+        while (yPos == previous_yPos || (yPos <= waterShape.transform.localScale.y+1/50f && yPos >= waterShape.transform.localScale.y-1/50f)){yPos = Random.Range(minHeight+1, maxHeight)/50f;}
         view.makeTargetArrow(targetArrow,yPos);
+        previous_yPos = yPos;
         targetArrow = view.getTargetArrow();
         targetArrow.GetComponent<TargetAnimation>().setUp();
 
@@ -57,7 +65,6 @@ public class Main : MonoBehaviour
 
     //Method called when OnMouseDrag() runs in DragNotifier script, attached to mainShape    
     public void updateModel(){
-        // Debug.Log("updating - Main");
         model.updateShapeModel(mainShape, waterShape);
     }
 
@@ -65,9 +72,12 @@ public class Main : MonoBehaviour
 
         //win condition
         if (50f*targetArrow.transform.position.y-1 < waterShape.transform.localScale.y && waterShape.transform.localScale.y < 50f*targetArrow.transform.position.y+1){
-            Debug.Log("WON ! ! ! !");
+            gameState = 1;
+            targetArrow.GetComponentInChildren<Image>().color = winColour;
+            Invoke("NextScene", 3f);
         }
-
-        //go to level menu screen if won
+    }
+    private void NextScene(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
     }
 }
