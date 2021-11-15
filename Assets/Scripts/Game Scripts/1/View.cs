@@ -35,6 +35,7 @@ public class View : Observer
         this.dragArrow = MonoBehaviour.Instantiate(arrow, new Vector3(mainShape.transform.localScale.x/50f, (mainShape.transform.localScale.y-10)/50f, -mainShape.transform.localScale.z/100f), Quaternion.identity);
     }
 
+    public void notifyMe(){}
     public void notifyMe(Vector3 mainPos, Vector3 waterPos, Vector3 mainScale, Vector3 waterScale){
     // Debug.Log("notified - View");
 

@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class Bounce : MonoBehaviour, TargetAnimation
 {
     float min, max, yPos, zPos;
-    int indicator;
 
     private float smoothing = 2f;
     private Vector3 target, start;
@@ -20,7 +19,6 @@ public class Bounce : MonoBehaviour, TargetAnimation
         target = new Vector3(max, yPos, zPos);
         start = transform.position;
         currentScene = SceneManager.GetActiveScene();
-        indicator=0;
         StartCoroutine(aniCoroutine()); 
   
     }

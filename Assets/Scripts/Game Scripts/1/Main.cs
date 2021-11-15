@@ -4,6 +4,8 @@ using UnityEngine;
 using static UnityEngine.Random;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+
+/* CONTROLLER SCRIPT - ADD TO MAIN CAMERA IN LEVEL 1 */
 public class Main : MonoBehaviour
 { 
     [SerializeField] public GameObject mainShape, waterShape, targetArrow, dragArrow; //Prefabs to be instantiated by View
@@ -21,18 +23,13 @@ public class Main : MonoBehaviour
     }
     void Start()
     {
-        //create model and view instances
+        //create model and view instances with model-observer relationship
         model = new Model();
         view = new View();
-
-        //make view an observer of model and model a subject of view
         view.addSubject(model);
 
-        //pass view main shap & water shape prefab references for instantiation
+        //make shapes & overwrite references to point to newly created clones
         view.makeShapes(mainShape, waterShape);
-
-        
-        //overwrite references to contain clones and not prefabs
         mainShape = view.getMainShape(); 
         waterShape = view.getWaterShape();
         
