@@ -221,3 +221,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e48e6836720154b986fc3bc4ed229d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  childName: Cylinder
+  glow: {fileID: 2100000, guid: 90a880f21a07ad74b95dfc68127b3c0f, type: 2}

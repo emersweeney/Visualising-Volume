@@ -421,8 +421,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aff8cb9190cc1834fadba43ed5e13919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainShape: {fileID: 2998657745935542326, guid: 566dfde13f3b37e4a91ad561d38468aa, type: 3}
-  waterShape: {fileID: 3643810698827377385, guid: 3fc74dbb5ce4b164f9ca4b1d008b6597, type: 3}
+  mainShape: {fileID: 7760020175630228878, guid: 175b92dcbea1da7408e42116e7744b97, type: 3}
+  waterShape: {fileID: 1883331357655197921, guid: c74b15cd40441eb46a7af2569e9cc4bf, type: 3}
   targetArrow: {fileID: 9039098385519977975, guid: f06a08abc4318484ba9767ec01388127, type: 3}
   dragArrow: {fileID: 814033888449098377, guid: df2edb7e37d488b47812d9dc40a2285f, type: 3}
   anchor: {fileID: 744048799}
@@ -511,7 +511,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5f1dafa792a020747b4dba784657faa2, type: 2}
+  - {fileID: 2100000, guid: d94492d78f8ec6f44be97e0de011e822, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

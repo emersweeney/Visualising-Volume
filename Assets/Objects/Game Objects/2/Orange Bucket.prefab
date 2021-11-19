@@ -140,6 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e48e6836720154b986fc3bc4ed229d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  childName: Cylinder
+  glow: {fileID: 2100000, guid: f3399f83fa4d2ba4499ee69c8fdacb4f, type: 2}
 --- !u!1 &8944241769212549784
 GameObject:
   m_ObjectHideFlags: 0

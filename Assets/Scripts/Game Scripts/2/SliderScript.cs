@@ -7,10 +7,13 @@ public class SliderScript : MonoBehaviour
 {
     [SerializeField] private Slider thisSlider;
     private Model2 model;
+    private float previousValue=0;
     void Start()
     {
         thisSlider.onValueChanged.AddListener((var) => {
-            model.updateClickedObject(var);
+            Debug.Log("sliding"+var);
+            if (var>previousValue) {model.updateClickedObject(var);previousValue=var;}
+            else {thisSlider.SetValueWithoutNotify(previousValue);}
         });
     }
 
@@ -20,5 +23,6 @@ public class SliderScript : MonoBehaviour
 
     public void reset(){
         thisSlider.SetValueWithoutNotify(0);
+        previousValue=0;
     }
 }
