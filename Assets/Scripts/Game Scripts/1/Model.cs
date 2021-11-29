@@ -55,7 +55,7 @@ public class Model : Subject
     public void notify(){
         foreach (Observer o in observers)
         {
-            o.notifyMe(newMainPosition, newWaterPosition, newMainScale, newWaterScale);
+            o.notifyMe(new List<Vector3>{newMainPosition, newWaterPosition, newMainScale, newWaterScale});
         }
     }
 

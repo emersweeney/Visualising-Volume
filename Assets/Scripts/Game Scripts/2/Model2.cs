@@ -26,15 +26,22 @@ public class Model2 : MonoBehaviour, Subject
             float targetX = clickedObjectStartPos.x + (v/10f)*(mainObjectPos.x - clickedObjectStartPos.x);
             float targetY = (v/10f)*(4f);
             float targetZ = clickedObjectStartPos.z + (v/10f)*(mainObjectPos.z - clickedObjectStartPos.z);
-            distance = new Vector3(targetX, targetY, targetZ);
+            distance = new Vector3(targetX, targetY, -7);
             notify();
         }
+    }
+
+    public bool smallIsEmpty(ref GameObject smallObject){
+        if ((smallObject != null) && (Mathf.Abs(smallObject.transform.position.x - mainObject.transform.position.x) <= 0.01f)) {
+            return true;
+        }
+        return false;
     }
 
     public void notify(){
         foreach (Observer o in observers)
         {
-            o.notifyMe(clickedObjectStartPos, distance, new Vector3(0,0,0), new Vector3(0,0,0));
+            o.notifyMe(new List<Vector3>{distance});
         }
     }
 

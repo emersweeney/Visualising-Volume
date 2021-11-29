@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CylinderVolume : MonoBehaviour, ShapeVolume
 {
-        float length, breadth, height, volume, dimension; //length = diameter = breadth
+    public float length, breadth, height, volume, dimension; //length = diameter = breadth
     public void calculateVolume(){
         this.length = this.gameObject.transform.localScale.z;
         this.breadth = this.gameObject.transform.localScale.x;
@@ -26,6 +26,7 @@ public class CylinderVolume : MonoBehaviour, ShapeVolume
         return volume/Camera.main.GetComponent<Main>().getMaxLength();
     }
     public float getMaxHeight(){return volume/Camera.main.GetComponent<Main>().getMinLength();}
+    public float getVolume(){return volume;}
     public void receiveMainShape(ref GameObject mainShape){}
     public void receiveDragDistance(float dragDistance){}
 }

@@ -403,7 +403,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1194496701}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.1, z: -4}
+  m_LocalPosition: {x: 0, y: 0.9, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -423,10 +423,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainShape: {fileID: 2998657745935542326, guid: 566dfde13f3b37e4a91ad561d38468aa, type: 3}
   waterShape: {fileID: 3643810698827377385, guid: 3fc74dbb5ce4b164f9ca4b1d008b6597, type: 3}
-  targetArrow: {fileID: 9039098385519977975, guid: f06a08abc4318484ba9767ec01388127, type: 3}
-  dragArrow: {fileID: 814033888449098377, guid: df2edb7e37d488b47812d9dc40a2285f, type: 3}
+  character: {fileID: 5490507445912455750, guid: e9e6ec7bdba931f419890d8652e1a6bd, type: 3}
+  smilingCharacter: {fileID: 9150688251253485791, guid: b9b79015dd8988c409d50cf725d7a8df, type: 3}
   anchor: {fileID: 744048799}
   winColour: {r: 0.46666667, g: 0.54509807, b: 0.92156863, a: 1}
+  characterPositionFactor: 2.5
 --- !u!114 &1194496706
 MonoBehaviour:
   m_ObjectHideFlags: 0

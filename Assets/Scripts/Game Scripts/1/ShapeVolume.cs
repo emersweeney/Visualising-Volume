@@ -9,6 +9,7 @@ public interface ShapeVolume
     public abstract Vector3 calculateNewScale(Vector3 mainScale);
     public abstract float getMinHeight();
     public abstract float getMaxHeight();
+    public abstract float getVolume();
     public abstract void receiveMainShape(ref GameObject mainShape);
     public abstract void receiveDragDistance(float dragDistance);
 }

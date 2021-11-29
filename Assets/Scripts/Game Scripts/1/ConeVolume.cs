@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ConeVolume : MonoBehaviour, ShapeVolume
 {
-    float length, breadth, height, volume, dimension, dragDistance; //length = diameter = breadth
+    public float length, breadth, height, volume, dimension, dragDistance; //length = diameter = breadth
     public GameObject mainShape;
     public void calculateVolume(){
         this.length = this.gameObject.transform.localScale.z;
@@ -39,6 +39,8 @@ public class ConeVolume : MonoBehaviour, ShapeVolume
         volume = (1f/3)*Mathf.PI*(length/2f)*(length/2f)*height;
         return volume;
     }
+
+    public float getVolume(){return volume;}
     public void receiveMainShape(ref GameObject mainShape){this.mainShape=mainShape;}
     public void receiveDragDistance(float dragDistance){this.dragDistance=dragDistance;}
 }

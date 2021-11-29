@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class View : Observer
 {
-    private GameObject mainShape, waterShape, targetArrow, dragArrow;
+    private GameObject mainShape, waterShape, character, smilingCharacter;
     private Subject subject;
     private Vector3 mainPos, waterPos;
     private Vector3 mainScale, waterScale;
@@ -12,8 +12,6 @@ public class View : Observer
     //Get methods for shapes - return by REFERENCE
     public ref GameObject getMainShape(){ return ref mainShape;}
     public ref GameObject getWaterShape(){ return ref waterShape;}
-    public ref GameObject getTargetArrow(){ return ref targetArrow;}
-    public ref GameObject getDragArrow(){ return ref dragArrow;}
     //Set method for subject
     public void addSubject(Subject subject){ this.subject = subject; subject.attach(this);}
     public void makeShapes(GameObject mainPrefab, GameObject waterPrefab){
@@ -28,37 +26,40 @@ public class View : Observer
         this.waterScale = waterShape.transform.localScale;
     }
 
-    public void makeTargetArrow(GameObject target, float yPos){
-        this.targetArrow = MonoBehaviour.Instantiate(target, new Vector3(-1f,yPos,0), Quaternion.identity);
+    public void makeCharacter(GameObject character, float yPos, float characterPositionFactor){
+        Vector3 originalScale = character.transform.localScale;
+        this.character = MonoBehaviour.Instantiate(character, new Vector3(-1f,yPos/3.33f*characterPositionFactor, 0), Quaternion.identity);
+        this.character.transform.localScale = new Vector3(yPos/3.33f, yPos/3.33f, yPos/3.33f);
     }
-    public void makeDragArrow(GameObject arrow){
-        this.dragArrow = MonoBehaviour.Instantiate(arrow, new Vector3(mainShape.transform.localScale.x/50f, (mainShape.transform.localScale.y-10)/50f, -mainShape.transform.localScale.z/100f), Quaternion.identity);
+
+    public ref GameObject getCharacter(){
+        return ref character;
     }
 
-    public void notifyMe(){}
-    public void notifyMe(Vector3 mainPos, Vector3 waterPos, Vector3 mainScale, Vector3 waterScale){
-    // Debug.Log("notified - View");
-
-        if (Camera.main.GetComponent<Main>().getGameState() == 1){return;}
-
+    public void notifyMe(List<Vector3> vectors){
         if (mainScale.x<-Camera.main.GetComponent<Main>().getMinLength() && mainScale.x>-Camera.main.GetComponent<Main>().getMaxLength()){
-            this.mainPos = mainPos;
+            this.mainPos = vectors[0];
             mainShape.transform.position = this.mainPos;
 
-            this.mainScale = mainScale;
+            this.mainScale = vectors[2];
             mainShape.transform.localScale = this.mainScale;
             waterShape.GetComponent<ShapeVolume>().receiveMainShape(ref mainShape);
 
-            this.waterPos = new Vector3(waterPos.x, waterScale.y/50/2, waterPos.z);
+            this.waterPos = new Vector3(vectors[1].x, vectors[3].y/50/2, vectors[1].z);
             waterShape.transform.position = this.waterPos;
 
-            this.waterScale = waterScale;
-            Debug.Log("WATER SCALE IN VIEW:"+this.waterScale);
+            this.waterScale = vectors[3];
             waterShape.transform.localScale = this.waterScale;
 
-            this.dragArrow.transform.position = new Vector3(-mainShape.transform.localScale.x/50f, (mainShape.transform.localScale.y-10)/50f, -mainShape.transform.localScale.z/100f);
-
         }
-    
+    }
+
+    public void makeSmilingCharacter(GameObject smile){
+        this.smilingCharacter = MonoBehaviour.Instantiate(smile, this.character.transform.localPosition, Quaternion.identity);
+        this.smilingCharacter.transform.localScale = character.transform.localScale;
+    }
+
+    public ref GameObject getSmilingCharacter(){
+        return ref smilingCharacter;
     }
 }

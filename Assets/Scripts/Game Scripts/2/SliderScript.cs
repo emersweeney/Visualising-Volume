@@ -11,7 +11,6 @@ public class SliderScript : MonoBehaviour
     void Start()
     {
         thisSlider.onValueChanged.AddListener((var) => {
-            Debug.Log("sliding"+var);
             if (var>previousValue) {model.updateClickedObject(var);previousValue=var;}
             else {thisSlider.SetValueWithoutNotify(previousValue);}
         });

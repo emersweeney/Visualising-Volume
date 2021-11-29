@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6453845889353526309}
   - component: {fileID: 294605427929955642}
   - component: {fileID: 3797659292776891574}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Canvas (Drag)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,7 +82,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &3797659292776891574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 2622249370669801958}
   - component: {fileID: 3294481894618508233}
   - component: {fileID: 224856238939587802}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
