@@ -37,7 +37,7 @@ public class View : Observer
     }
 
     public void notifyMe(List<Vector3> vectors){
-        if (mainScale.x<-Camera.main.GetComponent<Main>().getMinLength() && mainScale.x>-Camera.main.GetComponent<Main>().getMaxLength()){
+        if (vectors[2].x<-Camera.main.GetComponent<Main>().getMinLength() && vectors[2].x>-Camera.main.GetComponent<Main>().getMaxLength()){
             this.mainPos = vectors[0];
             mainShape.transform.position = this.mainPos;
 
@@ -50,7 +50,6 @@ public class View : Observer
 
             this.waterScale = vectors[3];
             waterShape.transform.localScale = this.waterScale;
-
         }
     }
 

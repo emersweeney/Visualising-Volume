@@ -5,7 +5,7 @@ using UnityEngine;
 public class DragNotifier : MonoBehaviour
 {   
     private void OnMouseDrag() {
-        // Debug.Log("dragging");
+        Debug.Log("dragging");
         Camera.main.GetComponent<Main>().updateModel();
     }
 }

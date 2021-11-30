@@ -1,17 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
+
 /** FADER SCRIPT FOR INSTRUCTION TEXT - ADD TO MAIN CAMERA **/
 public class UIFader : MonoBehaviour
 {
-    [SerializeField] private CanvasGroup canvasGroup;
-    public void fadeIn(){
+    public void fadeIn(CanvasGroup canvasGroup){
         StartCoroutine(fade(canvasGroup, canvasGroup.alpha, 1));
     }
 
-    public void fadeOut(){
+    public void fadeOut(CanvasGroup canvasGroup){
         StartCoroutine(fade(canvasGroup, canvasGroup.alpha, 0));
     }
     private IEnumerator fade(CanvasGroup canvasGroup, float start, float end, float lerpTime = 0.5f){
@@ -27,6 +24,5 @@ public class UIFader : MonoBehaviour
             if (percentComplete >= 1) break;
             yield return new WaitForEndOfFrame();
         }
-        print("UI faded");
     }
 }

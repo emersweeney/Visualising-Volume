@@ -4,8 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class ClickNotifier : MonoBehaviour
 {
-    private GameObject thisObject, childObject;
-    [SerializeField] private string waterComponent; 
+    private GameObject thisObject;
+    [SerializeField] private string waterComponent, containerComponent; 
     private Main2 main;
     // [SerializeField] private Material glow;
 
@@ -17,10 +17,8 @@ public class ClickNotifier : MonoBehaviour
         if (thisObject.transform.position.y==0f){
             main.resetSlider();
             main.setClickedObject(ref thisObject);
-
-            childObject = thisObject.transform.Find(waterComponent).gameObject;
-            // childObject.GetComponentInChildren<Renderer>().material = glow;
         }
     }
+
 
 }

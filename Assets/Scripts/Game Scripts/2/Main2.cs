@@ -2,22 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.Random;
-// using System.Collections.Generic.Dictionary;
+using UnityEngine.SceneManagement;
 
 /* CONTROLLER SCRIPT - ADD TO MAIN CAMERA IN LEVEL 2 */
 public class Main2 : MonoBehaviour
 {
-    [SerializeField] private GameObject mainObject, bar;
+    [SerializeField] private GameObject mainObject, mainWater, bar;
     [SerializeField] private Slider slider;
+    [SerializeField] private Material cartoonWater;
+    [SerializeField] private CanvasGroup canvasGroup;
+    [SerializeField] private Button homeButton, instructionsButton;
+    // [SerializeField] private Text instructionsButtonText;
     private GameObject clickedObject;
     private Model2 model;
     private View2 view;
     private List<float> mainSizes;
     private float size;
-    private int index;
-    private List<GameObject> smallObjectsList;
-    private Dictionary<GameObject, int> smallObjectsMap;
+    private int index, numToFill;
+    private bool instructionsVisible;
 
     private void Start()
     {
@@ -33,25 +35,18 @@ public class Main2 : MonoBehaviour
         //set up mainObject with random size
         setUpMain();
 
-        smallObjectsList = new List<GameObject>();
-        foreach (GameObject item in smallObjectsList)
-        {
-            Debug.Log(item.name);
-        }
-        //set up small Objects: choose random amount
-        //
-        // smallObjectsList = new List<GameObject>{small1, small2, small3, small4, small5, small6};
-        // index = Random.Range(1,smallObjectsList.Count);
-        // for (int i = 0; i < index; i++)
-        // {
-        //     smallObjectsMap.Add(smallObjectsList[i],1);            
-        // }
-        // for (int i = index; index < smallObjectsList.Count; i++){
-        //     Destroy(smallObjectsList[i]);
-        // }
-        //pass water level bar to WaterBar script, by reference
+        //pass water level bar to WaterBar script, by reference, and number of small objects to fill main object
         bar.GetComponent<BarScript>().setBar(ref bar);
+        bar.GetComponent<BarScript>().setNumSmallObjects(numToFill);
+
+        //add listeners to Home and Instructions buttons
+        homeButton.onClick.AddListener(goToHome);
+        instructionsButton.onClick.AddListener(instructionsMethod);
+
+        instructionsVisible = true;
+        StartCoroutine(fadeInstructions());
     }
+
     //be notified of what object has been clicked
     public void setClickedObject(ref GameObject clickedObject){
         if (this.clickedObject != null && (clickedObject = this.clickedObject)) return;
@@ -60,45 +55,67 @@ public class Main2 : MonoBehaviour
         view.receiveClickedObject(ref clickedObject);
     }
 
-    public ref Model2 GetModel2(){
-        return ref model;
-    }
-
     public void resetSlider(){
         slider.GetComponent<SliderScript>().reset();
     }
 
-    public void pour(ref GameObject clickedObject){
-
-        //call model method for bucket
-        //view observes model & makes changes
-
-    }
-    
-        //call model method for bath
-        //view observes model & makes changes
-
-    //called every frame, check for end condition
     private void Update(){
         if (model.smallIsEmpty(ref clickedObject)) {
-            print("empty");
             bar.GetComponent<BarScript>().increment();
-            print(bar.transform.localScale.y);
             view.returnSmallToOriginal();
             clickedObject = null;
         }
+        if (bar.GetComponent<BarScript>().isBarFull()) {
+            view.makeMainFull(cartoonWater, ref mainWater);
+            if (bar.GetComponent<BarScript>().getCount() == 6){
+                GameState.correctAnswer = 1;
+                GameState.displayMessage = "Tilly poured all of the buckets into Chase's bath and now it's full. What can hold more water?";
+            }
+            else {
+                GameState.correctAnswer = 0;
+                GameState.displayMessage = "Tilly poured all of the buckets into Chase's bath but it still isn't full. What can hold more water?";
+            }
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+        }
+        else if(bar.GetComponent<BarScript>().getCount() == 6){
+            GameState.correctAnswer = 2;
+            GameState.displayMessage = "Chase's bath is full and Tilly didn't have to pour all of the buckets in. What can hold more water?";
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+        }    
     }
 
     //make mainObject of random size, from list of possible sizes
     private void setUpMain(){
-        mainSizes = new List<float>{0.8f,1.0f,1.2f,1.4f,1.6f,1.8f};
+        mainSizes = new List<float>{0.8f, 0.9f, 1.0f, 1.1f, 1.4f, 1.5f, 1.6f};
         index = Random.Range(0, mainSizes.Count);
         size = (float)mainSizes[index];
         view.sizeMainObject(ref mainObject, size);
+        numToFill = index+1;
     }
 
-    public void receiveSmallObject(ref GameObject item){
-        smallObjectsList.Add(item);
+
+    private IEnumerator fadeInstructions(){
+        yield return new WaitForSeconds(10f);
+        this.GetComponent<UIFader>().fadeOut(canvasGroup);
+        instructionsVisible = false;
+        instructionsButton.GetComponentInChildren<Text>().text = "Show Instructions";
+        // instructionsButtonText.text = "Show Instructions";
+    }
+    private void instructionsMethod(){
+        if (instructionsVisible) fadeInstructionsOut();
+        else fadeInstructionsIn();
+        instructionsVisible = !instructionsVisible;
+    }
+    private void fadeInstructionsIn(){
+        this.GetComponent<UIFader>().fadeIn(canvasGroup);
+        instructionsButton.GetComponentInChildren<Text>().text = "Hide Instructions";
+    }
+    private void fadeInstructionsOut(){
+        this.GetComponent<UIFader>().fadeOut(canvasGroup);
+        instructionsButton.GetComponentInChildren<Text>().text = "Show Instructions";
+    }
+    private void goToHome(){
+        SceneManager.LoadScene(0);
     }
 
 }

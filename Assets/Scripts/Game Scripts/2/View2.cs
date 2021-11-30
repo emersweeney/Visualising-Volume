@@ -6,6 +6,7 @@ public class View2 : MonoBehaviour, Observer
 {
     private Subject subject;
     private GameObject mainObject, clickedObject;
+    private Transform waterObject, containerObject, mainWater;
     private Vector3 distance, originalScale, originalPosition;
     public void addSubject(Subject subject){ this.subject = subject; subject.attach(this);}
     public void notifyMe(List<Vector3> vectors){
@@ -25,6 +26,9 @@ public class View2 : MonoBehaviour, Observer
     public void returnSmallToOriginal(){
         clickedObject.transform.localScale = originalScale;
         StartCoroutine(moveCoroutine(originalPosition, 1f));
+        waterObject = clickedObject.transform.GetChild(1);
+        containerObject = clickedObject.transform.GetChild(0);
+        waterObject.GetComponentInChildren<Renderer>().material = containerObject.GetComponentInChildren<Renderer>().material;
     }
 
     private IEnumerator moveCoroutine(Vector3 target, float lerpTime)
@@ -41,6 +45,10 @@ public class View2 : MonoBehaviour, Observer
             if (percentComplete >= 1) break;
             yield return new WaitForEndOfFrame();
         }
+    }
+
+    public void makeMainFull(Material cartoonWater, ref GameObject mainWater){
+        mainWater.GetComponent<Renderer>().material = cartoonWater;
     }
 
 }
