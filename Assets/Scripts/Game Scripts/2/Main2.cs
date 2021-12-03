@@ -18,7 +18,8 @@ public class Main2 : MonoBehaviour
     private View2 view;
     private List<float> mainSizes;
     private float size;
-    private int index, numToFill;
+    private int index, numToFill, correctAnswer;
+    private string displayMessage;
     private bool instructionsVisible;
 
     private void Start()
@@ -68,19 +69,19 @@ public class Main2 : MonoBehaviour
         if (bar.GetComponent<BarScript>().isBarFull()) {
             view.makeMainFull(cartoonWater, ref mainWater);
             if (bar.GetComponent<BarScript>().getCount() == 6){
-                GameState.correctAnswer = 1;
-                GameState.displayMessage = "Tilly poured all of the buckets into Chase's bath and now it's full. What can hold more water?";
+                correctAnswer = 1;
+                displayMessage = "Tilly poured all of the buckets into Chase's bath and now it's full. What can hold more water?";
             }
             else {
-                GameState.correctAnswer = 0;
-                GameState.displayMessage = "Tilly poured all of the buckets into Chase's bath but it still isn't full. What can hold more water?";
+                correctAnswer = 0;
+                displayMessage = "Tilly poured all of the buckets into Chase's bath but it still isn't full. What can hold more water?";
             }
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+            endGame(correctAnswer, displayMessage);
         }
         else if(bar.GetComponent<BarScript>().getCount() == 6){
-            GameState.correctAnswer = 2;
-            GameState.displayMessage = "Chase's bath is full and Tilly didn't have to pour all of the buckets in. What can hold more water?";
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+            correctAnswer = 2;
+            displayMessage = "Chase's bath is full and Tilly didn't have to pour all of the buckets in. What can hold more water?";
+            endGame(correctAnswer, displayMessage);
         }    
     }
 
@@ -117,5 +118,19 @@ public class Main2 : MonoBehaviour
     private void goToHome(){
         SceneManager.LoadScene(0);
     }
+
+    // private void endGame(int answer, string text){
+    private void endGame(int answer, string text){
+        GameState.correctAnswer = answer;
+        GameState.displayMessage = text;
+        this.gameObject.GetComponent<CharacterScript>().changeCharactersMaterial();
+        StartCoroutine(callDecisionScene());
+    }
+
+    private IEnumerator callDecisionScene(){
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+    }
+
 
 }

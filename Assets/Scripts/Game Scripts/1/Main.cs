@@ -78,7 +78,7 @@ public class Main : MonoBehaviour
         }
     }
     private void NextScene(){
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
     }
 
     private void gameComplete(){
@@ -90,7 +90,7 @@ public class Main : MonoBehaviour
                 Destroy(character);
                 this.GetComponent<UIFader>().fadeOut(questionGroup);
                 StartCoroutine(endGameCoroutine());
-                // Invoke("NextScene", 3f);
+                Invoke("NextScene", 3f);
     }
 
     private IEnumerator endGameCoroutine()

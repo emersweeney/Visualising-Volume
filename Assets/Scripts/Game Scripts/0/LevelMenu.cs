@@ -8,6 +8,11 @@ public class LevelMenu : MonoBehaviour
     }
 
     public void NextLevel(){
+        print("pressing");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+    }
+
+    public void goHome(){
+        SceneManager.LoadScene(0);
     }
 }
