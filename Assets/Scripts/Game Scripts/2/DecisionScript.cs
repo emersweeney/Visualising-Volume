@@ -15,6 +15,8 @@ public class DecisionScript : MonoBehaviour
         indexCorrectButton = GameState.correctAnswer;
         message = GameState.displayMessage;
         textButton.text = message;
+        print(message);
+        print(indexCorrectButton);
         
         for (int i = 0; i < buttons.Count; i++)
         {

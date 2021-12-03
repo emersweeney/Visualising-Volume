@@ -12,7 +12,7 @@ public class Main2 : MonoBehaviour
     [SerializeField] private Material cartoonWater;
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private Button homeButton, instructionsButton;
-    // [SerializeField] private Text instructionsButtonText;
+    [SerializeField] private Sprite hideInstructionsSprite, showInstructionsSprite;
     private GameObject clickedObject;
     private Model2 model;
     private View2 view;
@@ -74,20 +74,20 @@ public class Main2 : MonoBehaviour
             }
             else {
                 correctAnswer = 0;
-                displayMessage = "Tilly poured all of the buckets into Chase's bath but it still isn't full. What can hold more water?";
+                displayMessage = "Chase's bath is full and Tilly didn't have to pour all of the buckets in. What can hold more water?";
             }
             endGame(correctAnswer, displayMessage);
         }
         else if(bar.GetComponent<BarScript>().getCount() == 6){
             correctAnswer = 2;
-            displayMessage = "Chase's bath is full and Tilly didn't have to pour all of the buckets in. What can hold more water?";
+            displayMessage = "Tilly poured all of the buckets into Chase's bath but it still isn't full. What can hold more water?";
             endGame(correctAnswer, displayMessage);
         }    
     }
 
     //make mainObject of random size, from list of possible sizes
     private void setUpMain(){
-        mainSizes = new List<float>{0.8f, 0.9f, 1.0f, 1.1f, 1.4f, 1.5f, 1.6f};
+        mainSizes = new List<float>{0.8f, 0.9f, 1.0f, 1.1f, 1.4f, 1.5f, 1.55f, 1.6f, 1.65f};
         index = Random.Range(0, mainSizes.Count);
         size = (float)mainSizes[index];
         view.sizeMainObject(ref mainObject, size);
@@ -99,8 +99,7 @@ public class Main2 : MonoBehaviour
         yield return new WaitForSeconds(10f);
         this.GetComponent<UIFader>().fadeOut(canvasGroup);
         instructionsVisible = false;
-        instructionsButton.GetComponentInChildren<Text>().text = "Show Instructions";
-        // instructionsButtonText.text = "Show Instructions";
+        instructionsButton.image.sprite = showInstructionsSprite;
     }
     private void instructionsMethod(){
         if (instructionsVisible) fadeInstructionsOut();
@@ -109,27 +108,28 @@ public class Main2 : MonoBehaviour
     }
     private void fadeInstructionsIn(){
         this.GetComponent<UIFader>().fadeIn(canvasGroup);
-        instructionsButton.GetComponentInChildren<Text>().text = "Hide Instructions";
+        instructionsButton.image.sprite = hideInstructionsSprite;
     }
     private void fadeInstructionsOut(){
         this.GetComponent<UIFader>().fadeOut(canvasGroup);
-        instructionsButton.GetComponentInChildren<Text>().text = "Show Instructions";
+        instructionsButton.image.sprite = showInstructionsSprite;
     }
     private void goToHome(){
         SceneManager.LoadScene(0);
     }
 
-    // private void endGame(int answer, string text){
     private void endGame(int answer, string text){
         GameState.correctAnswer = answer;
         GameState.displayMessage = text;
+        GameState.currentScene = SceneManager.GetActiveScene().buildIndex;
         this.gameObject.GetComponent<CharacterScript>().changeCharactersMaterial();
         StartCoroutine(callDecisionScene());
     }
 
     private IEnumerator callDecisionScene(){
-        yield return new WaitForSeconds(5f);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+        yield return new WaitForSeconds(2f);
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+        SceneManager.LoadScene(2);
     }
 
 

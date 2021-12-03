@@ -24,7 +24,6 @@ public class Model2 : MonoBehaviour, Subject
         if (clickedObject != null){
             float targetX = clickedObjectStartPos.x + (v/10f)*(mainObjectPos.x - clickedObjectStartPos.x);
             float targetY = (v/10f)*(4f);
-            float targetZ = clickedObjectStartPos.z + (v/10f)*(mainObjectPos.z - clickedObjectStartPos.z);
             distance = new Vector3(targetX, targetY, -7);
             notify();
         }

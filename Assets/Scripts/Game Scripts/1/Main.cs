@@ -11,6 +11,7 @@ public class Main : MonoBehaviour
     [SerializeField] private CanvasGroup instructionGroup, questionGroup;
     [SerializeField] private Button homeButton, instructionsButton;
     [SerializeField] private float characterPositionFactor;
+    [SerializeField] private Sprite hideInstructionsSprite, showInstructionsSprite;
     private Model model;
     private View view;
     private float cameraZDistance; //mouse drag z coordinate set to this to ensure movement is detected
@@ -78,7 +79,7 @@ public class Main : MonoBehaviour
         }
     }
     private void NextScene(){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+        SceneManager.LoadScene(1);
     }
 
     private void gameComplete(){
@@ -89,6 +90,7 @@ public class Main : MonoBehaviour
                 smilingCharacter = view.getSmilingCharacter();
                 Destroy(character);
                 this.GetComponent<UIFader>().fadeOut(questionGroup);
+                GameState.currentScene = SceneManager.GetActiveScene().buildIndex;
                 StartCoroutine(endGameCoroutine());
                 Invoke("NextScene", 3f);
     }
@@ -101,11 +103,10 @@ public class Main : MonoBehaviour
         }
     }
     private IEnumerator fadeInstructions(){
-        print("fading");
         yield return new WaitForSeconds(10f);
         this.GetComponent<UIFader>().fadeOut(instructionGroup);
         instructionsVisible = false;
-        instructionsButton.GetComponentInChildren<Text>().text = "Show Instructions";
+        instructionsButton.image.sprite = showInstructionsSprite;
     }
     private void instructionsMethod(){
         if (instructionsVisible) fadeInstructionsOut();
@@ -114,11 +115,11 @@ public class Main : MonoBehaviour
     }
     private void fadeInstructionsIn(){
         this.GetComponent<UIFader>().fadeIn(instructionGroup);
-        instructionsButton.GetComponentInChildren<Text>().text = "Hide Instructions";
+        instructionsButton.image.sprite = hideInstructionsSprite;
     }
     private void fadeInstructionsOut(){
         this.GetComponent<UIFader>().fadeOut(instructionGroup);
-        instructionsButton.GetComponentInChildren<Text>().text = "Show Instructions";
+        instructionsButton.image.sprite = showInstructionsSprite;
     }
     private void goToHome(){
         SceneManager.LoadScene(0);
