@@ -1,0 +1,36 @@
+{
+    "bath_buckets" : [
+            {
+                "state" : 0,
+                "message" : "Chase's bath is full and Tilly didn't have to pour all of the buckets in. What can hold more water?",
+                "solution" : "Chase's bath is full and Tilly didn't have to pour all of the buckets in. This means all of Tilly's buckets together can hold more water than Chase's bath can."
+            },
+            {
+                "state" : 1,
+                "message" : "Tilly poured all of the buckets into Chase's bath and now it's full. What can hold more water?",
+                "solution" : "Chase's bath is full and Tilly had to pour all of the buckets in. This means all of Tilly's buckets together can hold the same amount of water as Chase's bath can."
+            },
+            {
+                "state" : 2,
+                "message" : "Tilly poured all of the buckets into Chase's bath but it still isn't full. What can hold more water?",
+                "solution" : "Tilly poured all of the buckets into Chase's bath but it isn't full. This means Chase's bath can hold more water than Tilly's buckets."
+            }
+        ],
+    "teapot_teacups" : [ 
+            {
+                "state" : 0,
+                "message" : "Chase's teapot is full and Tilly didn't have to pour all of the teacups in. What can hold more water?",
+                "solution" : "Chase's teapot is full and Tilly didn't have to pour all of the teacups in. This means all of Tilly's teacups together can hold more water than Chase's teapot can."
+            },
+            {
+                "state" : 1,
+                "message" : "Tilly poured all of the teacups into Chase's teapot and now it's full. What can hold more water?",
+                "solution" : "Chase's teapot is full and Tilly had to pour all of the teacups in. This means all of Tilly's teacups together can hold the same amount of water as Chase's teapot can."
+            },
+            {
+                "state" : 2,
+                "message" : "Tilly poured all of the teacups into Chase's teapot but it still isn't full. What can hold more water?",
+                "solution" : "Tilly poured all of the teacups into Chase's teapot but it isn't full. This means Chase's teapot can hold more water than Tilly's teacups."
+            }
+        ]
+}

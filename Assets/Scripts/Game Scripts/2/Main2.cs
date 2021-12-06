@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 /* CONTROLLER SCRIPT - ADD TO MAIN CAMERA IN LEVEL 2 */
 public class Main2 : MonoBehaviour
 {
+    [SerializeField] private int gameVersion; //0=buckets & bath, 1=teapot and teacups
     [SerializeField] private GameObject mainObject, mainWater, bar;
     [SerializeField] private Slider slider;
     [SerializeField] private Material cartoonWater;
@@ -19,9 +20,10 @@ public class Main2 : MonoBehaviour
     private List<float> mainSizes;
     private float size;
     private int index, numToFill, correctAnswer;
-    private string displayMessage;
+    private string displayMessage, solutionMessage;
     private bool instructionsVisible;
-
+    private JsonReader.DecisionData[] decisionArray;
+    private JsonReader.DecisionData dataObject;
     private void Start()
     {
         //create model2 and view2 instances with model-observer relationship
@@ -46,6 +48,9 @@ public class Main2 : MonoBehaviour
 
         instructionsVisible = true;
         StartCoroutine(fadeInstructions());
+
+        //get array with appropriate display messages and correct answer for this game version (version indicates what objects are in scene)
+        decisionArray = this.gameObject.GetComponent<JsonReader>().getDecisionArray(gameVersion);
     }
 
     //be notified of what object has been clicked
@@ -70,18 +75,23 @@ public class Main2 : MonoBehaviour
             view.makeMainFull(cartoonWater, ref mainWater);
             if (bar.GetComponent<BarScript>().getCount() == 6){
                 correctAnswer = 1;
-                displayMessage = "Tilly poured all of the buckets into Chase's bath and now it's full. What can hold more water?";
             }
             else {
                 correctAnswer = 0;
-                displayMessage = "Chase's bath is full and Tilly didn't have to pour all of the buckets in. What can hold more water?";
             }
-            endGame(correctAnswer, displayMessage);
+            dataObject = (JsonReader.DecisionData)decisionArray.GetValue(correctAnswer);
+            displayMessage = dataObject.getMessage(); 
+            solutionMessage = dataObject.getSoluion();
+            print(solutionMessage);
+            endGame(correctAnswer, displayMessage, solutionMessage);
         }
         else if(bar.GetComponent<BarScript>().getCount() == 6){
             correctAnswer = 2;
-            displayMessage = "Tilly poured all of the buckets into Chase's bath but it still isn't full. What can hold more water?";
-            endGame(correctAnswer, displayMessage);
+            dataObject = (JsonReader.DecisionData)decisionArray.GetValue(correctAnswer);
+            displayMessage = dataObject.getMessage(); 
+            solutionMessage = dataObject.getSoluion();
+            print(solutionMessage);
+            endGame(correctAnswer, displayMessage, solutionMessage);
         }    
     }
 
@@ -118,9 +128,10 @@ public class Main2 : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    private void endGame(int answer, string text){
+    private void endGame(int answer, string text, string solution){
         GameState.correctAnswer = answer;
         GameState.displayMessage = text;
+        GameState.solution = solution;
         GameState.currentScene = SceneManager.GetActiveScene().buildIndex;
         this.gameObject.GetComponent<CharacterScript>().changeCharactersMaterial();
         StartCoroutine(callDecisionScene());

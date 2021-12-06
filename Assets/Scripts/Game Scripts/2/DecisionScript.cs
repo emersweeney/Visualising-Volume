@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class DecisionScript : MonoBehaviour
 {
@@ -15,16 +16,27 @@ public class DecisionScript : MonoBehaviour
         indexCorrectButton = GameState.correctAnswer;
         message = GameState.displayMessage;
         textButton.text = message;
-        print(message);
-        print(indexCorrectButton);
         
         for (int i = 0; i < buttons.Count; i++)
         {
-            if (i==indexCorrectButton) buttons[i].onClick.AddListener(correctAnswer);
-            else buttons[i].onClick.AddListener(incorrectAnswer);
+            if (i==indexCorrectButton) {
+                print("correct button = "+i);
+                buttons[i].onClick.AddListener(correctAnswer);
+            }
+            else {
+                print("incorrect button = "+i);
+                buttons[i].onClick.AddListener(incorrectAnswer);
+            }
         }
     }
 
-    private void correctAnswer(){}
-    private void incorrectAnswer(){}
+    public void correctAnswer(){
+        print("correct answer pressed");
+        GameState.choseCorrectly = true;
+        SceneManager.LoadScene(3);
+    }
+    public void incorrectAnswer(){
+        GameState.choseCorrectly = false;
+        SceneManager.LoadScene(3);
+    }
 }

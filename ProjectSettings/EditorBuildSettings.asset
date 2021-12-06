@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/2/2.0.1 Decision.unity
     guid: 8395abc4d2bbcec4ebc84068a3c24732
   - enabled: 1
+    path: Assets/Scenes/2/2.0.2 Solution.unity
+    guid: d968460f464058e42b4104d4cae0bc91
+  - enabled: 1
     path: Assets/Scenes/1/1.1 Cuboid.unity
     guid: bab75d2f30e1c034f82256fd76736397
   - enabled: 1
@@ -23,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/2/2.1 Bath.unity
     guid: 819caba5b732a3f468082dc1df0e4d23
+  - enabled: 1
+    path: Assets/Scenes/0/End.unity
+    guid: ee144db5b3a45d643a8aa26d66c3c8e2
   m_configObjects: {}

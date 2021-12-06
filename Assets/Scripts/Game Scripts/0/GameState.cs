@@ -2,6 +2,8 @@ public static class GameState
 {
     private static int currentGameScene, answer = 0;
     private static string message = "testing text", solutionMessage = "solution text";
+
+    private static bool userChoseCorrectAnswer = false;
     
     public static int currentScene{
         get{return currentGameScene;}
@@ -19,6 +21,11 @@ public static class GameState
     public static string solution{
         get{return solutionMessage;}
         set{solutionMessage = value;}
+    }
+
+    public static bool choseCorrectly{
+        get{return userChoseCorrectAnswer;}
+        set{userChoseCorrectAnswer = value;}
     }
 }
 

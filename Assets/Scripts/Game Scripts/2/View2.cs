@@ -6,7 +6,7 @@ public class View2 : MonoBehaviour, Observer
 {
     private Subject subject;
     private GameObject mainObject, clickedObject;
-    private Transform waterObject, containerObject, mainWater;
+    private Transform waterObject, containerObject;
     private Vector3 distance, originalScale, originalPosition;
     public void addSubject(Subject subject){ this.subject = subject; subject.attach(this);}
     public void notifyMe(List<Vector3> vectors){
