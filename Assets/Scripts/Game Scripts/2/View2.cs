@@ -29,6 +29,7 @@ public class View2 : MonoBehaviour, Observer
         waterObject = clickedObject.transform.GetChild(1);
         containerObject = clickedObject.transform.GetChild(0);
         waterObject.GetComponentInChildren<Renderer>().material = containerObject.GetComponentInChildren<Renderer>().material;
+        clickedObject.GetComponent<ClickNotifier>().setEmpty(true);
     }
 
     private IEnumerator moveCoroutine(Vector3 target, float lerpTime)

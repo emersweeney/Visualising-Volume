@@ -16,7 +16,7 @@ public class LevelMenu : MonoBehaviour
     }
 
     public void startButton(){
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene(6);
     }
 
     public void okButton(){

@@ -79,7 +79,7 @@ public class Main : MonoBehaviour
         }
     }
     private void NextScene(){
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     private void gameComplete(){

@@ -140,7 +140,8 @@ public class Main2 : MonoBehaviour
     private IEnumerator callDecisionScene(){
         yield return new WaitForSeconds(2f);
         // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
-        SceneManager.LoadScene(2);
+        if (GameState.currentScene == SceneManager.sceneCountInBuildSettings) {SceneManager.LoadScene(5);}
+        else SceneManager.LoadScene(3);
     }
 
 

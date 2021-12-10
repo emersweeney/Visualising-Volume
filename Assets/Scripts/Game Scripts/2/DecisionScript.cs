@@ -33,10 +33,10 @@ public class DecisionScript : MonoBehaviour
     public void correctAnswer(){
         print("correct answer pressed");
         GameState.choseCorrectly = true;
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(4);
     }
     public void incorrectAnswer(){
         GameState.choseCorrectly = false;
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(4);
     }
 }

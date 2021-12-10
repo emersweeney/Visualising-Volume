@@ -254,8 +254,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textButton: {fileID: 1933122800}
   button0: {fileID: 9019094508298994452}
-  button1: {fileID: 9019094508618734190}
-  button2: {fileID: 9019094508772676048}
+  button1: {fileID: 9019094508772676048}
+  button2: {fileID: 9019094508618734190}
 --- !u!1 &1484038312
 GameObject:
   m_ObjectHideFlags: 0

@@ -432,8 +432,8 @@ MonoBehaviour:
   homeButton: {fileID: 5368244237936319707}
   instructionsButton: {fileID: 7539409211187599579}
   characterPositionFactor: 2.5
-  hideInstructionsSprite: {fileID: 0}
-  showInstructionsSprite: {fileID: 0}
+  hideInstructionsSprite: {fileID: 21300000, guid: 4070f48a96e07554eb8ce8b46aa16f91, type: 3}
+  showInstructionsSprite: {fileID: 21300000, guid: a6b7331c24d332c45be7c0b713098848, type: 3}
 --- !u!114 &1194496706
 MonoBehaviour:
   m_ObjectHideFlags: 0
