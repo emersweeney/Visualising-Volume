@@ -92,6 +92,10 @@ public class Main2 : MonoBehaviour
             solutionMessage = dataObject.getSoluion();
             print(solutionMessage);
             endGame(correctAnswer, displayMessage, solutionMessage);
+        }
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
         }    
     }
 

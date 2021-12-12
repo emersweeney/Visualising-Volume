@@ -2,7 +2,6 @@ public static class GameState
 {
     private static int currentGameScene, answer = 0;
     private static string message = "testing text", solutionMessage = "solution text";
-
     private static bool userChoseCorrectAnswer = false;
     
     public static int currentScene{

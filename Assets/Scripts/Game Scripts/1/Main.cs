@@ -17,12 +17,8 @@ public class Main : MonoBehaviour
     private float cameraZDistance; //mouse drag z coordinate set to this to ensure movement is detected
     private float minLength, maxLength, minHeight, maxHeight, yPos, previous_yPos;
     private bool instructionsVisible = true;
-
     private int gameState; //0 = game not won, 1 = game won
 
-    public int getGameState(){
-        return gameState;
-    }
     void Start()
     {
         gameState = 0;
@@ -77,9 +73,10 @@ public class Main : MonoBehaviour
                gameComplete();
             }
         }
-    }
-    private void NextScene(){
-        SceneManager.LoadScene(2);
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
     }
 
     private void gameComplete(){
@@ -93,6 +90,10 @@ public class Main : MonoBehaviour
                 GameState.currentScene = SceneManager.GetActiveScene().buildIndex;
                 StartCoroutine(endGameCoroutine());
                 Invoke("NextScene", 3f);
+    }
+
+    private void NextScene(){
+        SceneManager.LoadScene(2);
     }
 
     private IEnumerator endGameCoroutine()
@@ -121,7 +122,5 @@ public class Main : MonoBehaviour
         this.GetComponent<UIFader>().fadeOut(instructionGroup);
         instructionsButton.image.sprite = showInstructionsSprite;
     }
-    private void goToHome(){
-        SceneManager.LoadScene(0);
-    }
+    private void goToHome(){SceneManager.LoadScene(0);}
 }

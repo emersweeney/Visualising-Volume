@@ -16,10 +16,25 @@ public class LevelMenu : MonoBehaviour
     }
 
     public void startButton(){
+        SceneManager.LoadScene(10);
+    }
+
+    public void registerButton(){
+        SceneManager.LoadScene(11);
+    }
+
+    public void loginButton(){
         SceneManager.LoadScene(6);
     }
 
     public void okButton(){
         SceneManager.LoadScene(1);
+    }
+
+    private void Update() {
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
     }
 }

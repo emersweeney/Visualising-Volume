@@ -1,4 +1,4 @@
-{
+{   "scenes" : ["Scenes/1/1.1 Cuboid","Scenes/1/1.2 Cylinder","Scenes/2/2.1 Bath","Scenes/2/2.2 Teapot"],
     "bath_buckets" : [
             {
                 "state" : 0,
