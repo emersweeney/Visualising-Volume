@@ -1,8 +1,8 @@
 {
   "project_info": {
     "project_number": "1020454088965",
+    "firebase_url": "https://test-5a2d4-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "test-5a2d4",
-    "firebase_url" : "https://test-5a2d4-default-rtdb.europe-west1.firebasedatabase.app/",
     "storage_bucket": "test-5a2d4.appspot.com"
   },
   "client": [

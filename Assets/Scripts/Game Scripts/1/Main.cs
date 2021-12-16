@@ -46,7 +46,7 @@ public class Main : MonoBehaviour
         maxHeight = waterShape.GetComponent<ShapeVolume>().getMaxHeight()/100f;
         
         //randomise y position of target arrow, ensuring it is not the same as previous yPos OR current height of water shape
-        while (yPos == previous_yPos || (yPos <= waterShape.transform.localScale.y+1/50f && yPos >= waterShape.transform.localScale.y-1/50f)){yPos = Random.Range(minHeight+1, maxHeight)/50f;}
+        while (yPos == previous_yPos || (yPos <= waterShape.transform.localScale.y+1/50f && yPos >= waterShape.transform.localScale.y-1/50f)){yPos = Random.Range(minHeight+2, maxHeight)/50f;}
         previous_yPos = yPos;
 
         view.makeCharacter(character, yPos, characterPositionFactor);

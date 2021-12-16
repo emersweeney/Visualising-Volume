@@ -41,4 +41,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/0/Register.unity
     guid: a87fa622cf515bd4fac43bae90f30448
+  - enabled: 1
+    path: Assets/Scenes/1/1.0.2 Check.unity
+    guid: fd465429da79a3c43b573cd5a14176b7
+  - enabled: 1
+    path: Assets/Scenes/2/2.0.3 Check.unity
+    guid: 292783cea078472479f0ffe09f0810d0
+  - enabled: 1
+    path: Assets/Scenes/0/TeacherScreen.unity
+    guid: 1fb61419757561f4997964e0e9022a41
   m_configObjects: {}

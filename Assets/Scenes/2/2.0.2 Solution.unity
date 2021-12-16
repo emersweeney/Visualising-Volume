@@ -452,8 +452,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3982994331617824591}
-        m_TargetAssemblyTypeName: LevelMenu, GameAssembly
-        m_MethodName: okButton
+        m_TargetAssemblyTypeName: Menu, GameAssembly
+        m_MethodName: okButtonNormal
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -775,3 +775,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dd6aceab06fa2e4cb50045f0325f9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameType: 0
+  button: {fileID: 0}

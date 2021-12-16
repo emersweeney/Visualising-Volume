@@ -36,6 +36,7 @@ public class DecisionScript : MonoBehaviour
         SceneManager.LoadScene(4);
     }
     public void incorrectAnswer(){
+        print("incorrect answer pressed");
         GameState.choseCorrectly = false;
         SceneManager.LoadScene(4);
     }
